@@ -1,0 +1,5 @@
+# Masaüstündeki diğer dosyaları hariç tutun
+../*
+
+# Sadece proje klasörünü dahil edin
+!softalya_backend_project/
