@@ -1,38 +1,48 @@
-from django.shortcuts import render, redirect
-from .models import User
-from django.contrib.auth.hashers import make_password, check_password
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from .models import Address
+from django.contrib.auth.decorators import login_required
 
-# Kullanıcı Kayıt
-def signup_view(request):
+@login_required
+def add_address(request):
     if request.method == 'POST':
-        name = request.POST['name']
-        address = request.POST['address']
-        email = request.POST['email']
-        password = make_password(request.POST['password'])
-        mobile = request.POST['mobile']
+        name = request.POST.get('name')
+        last_name = request.POST.get('lastName')
+        phone_number = request.POST.get('phoneNumber')
+        description = request.POST.get('description')
+        user = request.user
 
-        user = User(name=name, address=address, email=email, password=password, mobile=mobile)
-        user.save()
-        return redirect('signin')  # Kayıttan sonra giriş sayfasına yönlendirme
-    return render(request, 'accounts/signup.html')
+        Address.objects.create(
+            name=name,
+            last_name=last_name,
+            phone_number=phone_number,
+            description=description,
+            user=user
+        )
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid method"}, status=405)
 
-# Kullanıcı Giriş
-def signin_view(request):
+@login_required
+def get_addresses(request):
+    addresses = Address.objects.filter(user=request.user)
+    return JsonResponse(list(addresses.values()), safe=False)
+
+@login_required
+def update_address(request, id):
+    address = get_object_or_404(Address, id=id, user=request.user)
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        
-        try:
-            user = User.objects.get(email=email)
-            if check_password(password, user.password):
-                # Başarılı giriş işlemi
-                return redirect('homepage')  # Anasayfaya yönlendirme
-            else:
-                return render(request, 'accounts/signin.html', {'error': 'Geçersiz şifre'})
-        except User.DoesNotExist:
-            return render(request, 'accounts/signin.html', {'error': 'Kullanıcı bulunamadı'})
-    return render(request, 'accounts/signin.html')
+        address.name = request.POST.get('name', address.name)
+        address.last_name = request.POST.get('lastName', address.last_name)
+        address.phone_number = request.POST.get('phoneNumber', address.phone_number)
+        address.description = request.POST.get('description', address.description)
+        address.save()
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid method"}, status=405)
 
-# Anasayfa Görüntüleme
-def homepage_view(request):
-    return render(request, 'accounts/homepage.html')
+@login_required
+def delete_address(request, id):
+    address = get_object_or_404(Address, id=id, user=request.user)
+    if request.method == 'DELETE':
+        address.delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid method"}, status=405)

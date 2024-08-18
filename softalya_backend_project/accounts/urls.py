@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import signup_view, signin_view, homepage_view
+from .views import add_address, get_addresses, update_address, delete_address
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('signup/', signup_view, name='signup'),
-    path('signin/', signin_view, name='signin'),
-    path('homepage/', homepage_view, name='homepage'),
+    path('addresses/', login_required(get_addresses), name='get_addresses'),
+    path('addresses/add/', login_required(add_address), name='add_address'),
+    path('addresses/update/<int:id>/', login_required(update_address), name='update_address'),
+    path('addresses/delete/<int:id>/', login_required(delete_address), name='delete_address'),
 ]

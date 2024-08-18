@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'food_orders',  # Yeni oluşturduğum uygulama
-    'accounts',  # accounts uygulamasını ekleyin
+    'food_orders',  # Siparişlerle ilgili uygulama
+    'accounts',     # Kullanıcı hesaplarıyla ilgili uygulama
+    'products',     # Ürünler ve kategorilerle ilgili uygulama 
 ]
 
 
@@ -79,15 +80,13 @@ WSGI_APPLICATION = 'softalya_backend_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'softalya_db',
-        'USER': 'root',          # MySQL kullanıcı adı
-        'PASSWORD': 'password',  # MySQL şifren (girdiğin şifre "password")
+        'NAME': 'softalya_db',    # Veritabanı adı
+        'USER': 'root',            # MySQL kullanıcı adı
+        'PASSWORD': 'password',  
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-
-
 
 
 # Password validation
