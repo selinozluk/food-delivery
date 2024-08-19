@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import add_address, get_addresses, update_address, delete_address
-from django.contrib.auth.decorators import login_required
+from .views import home, register, login, add_address, get_addresses, update_address, delete_address
 
 urlpatterns = [
-    path('addresses/', login_required(get_addresses), name='get_addresses'),
-    path('addresses/add/', login_required(add_address), name='add_address'),
-    path('addresses/update/<int:id>/', login_required(update_address), name='update_address'),
-    path('addresses/delete/<int:id>/', login_required(delete_address), name='delete_address'),
+    path('', home, name='home'),  # Ana sayfa
+    path('register/', register, name='register'),  # Kayıt sayfası
+    path('login/', login, name='login'),  # Giriş sayfası
+    path('addresses/', get_addresses, name='get_addresses'),  # Adresleri görüntüleme
+    path('addresses/add/', add_address, name='add_address'),  # Adres ekleme
+    path('addresses/update/<int:id>/', update_address, name='update_address'),  # Adres güncelleme
+    path('addresses/delete/<int:id>/', delete_address, name='delete_address'),  # Adres silme
 ]

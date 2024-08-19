@@ -1,9 +1,71 @@
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="address" placeholder="Address" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="text" name="mobile" placeholder="Mobile" required>
-    <button type="submit">Sign Up</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            color: red;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <input type="text" name="username" placeholder="Kullanıcı Adı" required>
+        </div>
+        <div>
+            <input type="email" name="email" placeholder="E-posta" required>
+        </div>
+        <div>
+            <input type="password" name="password1" placeholder="Şifre" required>
+        </div>
+        <div>
+            <input type="password" name="password2" placeholder="Şifreyi Tekrarla" required>
+        </div>
+        <div>
+            <input type="text" name="first_name" placeholder="Ad" required>
+        </div>
+        <div>
+            <input type="text" name="last_name" placeholder="Soyad" required>
+        </div>
+        <div>
+            <input type="text" name="mobile" placeholder="Telefon Numarası" required>
+        </div>
+        <button type="submit">Kayıt Ol</button>
+    </form>
+</body>
+</html>
