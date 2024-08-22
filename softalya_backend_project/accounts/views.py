@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .models import Address
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
+from .forms import CustomUserCreationForm  # Özel formu buraya import ediyoruz
+from django.contrib.auth.forms import AuthenticationForm
 
 # Ana Sayfa (Home) Fonksiyonu
 def home(request):
@@ -13,7 +14,7 @@ def home(request):
 # Kullanıcı Kayıt (Register) Fonksiyonu
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -23,7 +24,7 @@ def register(request):
         else:
             messages.error(request, 'Kayıt işleminde bir hata oluştu.')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
 # Kullanıcı Giriş (Login) Fonksiyonu

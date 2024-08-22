@@ -6,7 +6,7 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-# Yeni eklediğin endpoint
+# Yeni eklediğim endpoint
 @app.get("/orders/")
 def read_orders():
     return {"orders": "This will return a list of orders"}
