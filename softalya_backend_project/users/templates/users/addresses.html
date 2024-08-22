@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addresses</title>
+</head>
+<body>
+    <h1>Adreslerim</h1>
+
+    <!-- Adres Listesi -->
+    {% if addresses %}
+        <ul>
+        {% for address in addresses %}
+            <li>{{ address.name }} - {{ address.description }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Henüz kayıtlı bir adres yok.</p>
+    {% endif %}
+
+    <!-- Yeni Adres Ekleme Formu -->
+    <h2>Yeni Adres Ekle</h2>
+    <form method="POST" action="{% url 'add_address' %}">
+        {% csrf_token %}
+        <label for="name">Ad:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="last_name">Soyad:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+
+        <label for="phone_number">Telefon:</label>
+        <input type="text" id="phone_number" name="phone_number" required><br>
+
+        <label for="description">Adres Tanımı:</label>
+        <textarea id="description" name="description" required></textarea><br>
+
+        <button type="submit">Adres Ekle</button>
+    </form>
+</body>
+</html>
