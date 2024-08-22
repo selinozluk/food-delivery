@@ -25,7 +25,7 @@ def register(request):
             messages.error(request, 'Kayıt işleminde bir hata oluştu.')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form})
 
 # Kullanıcı Giriş (Login) Fonksiyonu
 def login(request):
@@ -40,7 +40,7 @@ def login(request):
             messages.error(request, 'Giriş bilgileri hatalı, lütfen tekrar deneyin.')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'users/login.html', {'form': form})
 
 # Adres Ekleme Fonksiyonu
 @login_required
@@ -67,7 +67,7 @@ def add_address(request):
 @login_required
 def get_addresses(request):
     addresses = Address.objects.filter(user=request.user)
-    return render(request, 'accounts/addresses.html', {'addresses': addresses})  # Şablona yönlendirme
+    return render(request, 'users/addresses.html', {'addresses': addresses})  # Şablona yönlendirme
 
 # Adres Güncelleme Fonksiyonu
 @login_required

@@ -11,7 +11,7 @@ def get_past_orders(request):
 
 @login_required
 def get_order_detail_by_id(request, id):
-    # Belirli bir siparişin detaylarını getirir
+    # Belirli bir siparişin detaylarını getirir (front)
     order = get_object_or_404(Order, id=id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)
     return JsonResponse({"order": order.id, "items": list(order_items.values())}, safe=False)
@@ -19,13 +19,13 @@ def get_order_detail_by_id(request, id):
 @login_required
 def complete_order(request):
     if request.method == 'POST':
-        # Kullanıcının sepetindeki ürünleri al
+        # Kullanıcının sepetindeki ürünleri al (front)
         cart_items = request.user.cart.cartitem_set.all()
 
         if not cart_items:
             return JsonResponse({"error": "Sepetinizde ürün bulunmamaktadır."}, status=400)
 
-        # Yeni bir sipariş oluştur
+        # Yeni bir sipariş oluştur (front)
         address_id = request.POST.get('addressId')
         address = get_object_or_404(Address, id=address_id, user=request.user)
         order = Order.objects.create(user=request.user, address=address, total_price=0)

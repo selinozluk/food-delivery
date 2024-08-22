@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'food_orders',  # Siparişlerle ilgili uygulama
-    'accounts',     # Kullanıcı hesaplarıyla ilgili uygulama
+    'users',     # Kullanıcı hesaplarıyla ilgili uygulama
     'products',     # Ürünler ve kategorilerle ilgili uygulama 
 ]
 

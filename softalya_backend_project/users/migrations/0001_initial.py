@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('quantity', models.IntegerField()),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('datetime', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.user')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
             ],
         ),
     ]

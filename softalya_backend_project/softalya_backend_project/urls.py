@@ -5,5 +5,5 @@ from .views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),  # Ana sayfa URL yönlendirmesi
-    path('accounts/', include('accounts.urls')), 
+    path('users/', include('users.urls')), 
 ]
