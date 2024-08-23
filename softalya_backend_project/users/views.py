@@ -6,6 +6,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib import messages
 from .forms import CustomUserCreationForm  # Özel formu buraya import ediyoruz
 from django.contrib.auth.forms import AuthenticationForm
+from django.views.decorators.csrf import csrf_exempt  # CSRF muafiyeti için gerekli import
 
 # Ana Sayfa (Home) Fonksiyonu
 def home(request):
@@ -28,6 +29,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 # Kullanıcı Giriş (Login) Fonksiyonu
+@csrf_exempt  # CSRF korumasını devre dışı bırakıyoruz
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
